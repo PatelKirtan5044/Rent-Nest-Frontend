@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth, BASE_URL } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { FileText, Calendar, Plus, Sparkles, User, Award, FileDown, CheckCircle, Clock, X } from 'lucide-react';
 import SignaturePad from '../components/SignaturePad';
@@ -169,7 +169,7 @@ const AgreementManagement = () => {
                   </div>
                   {selectedAgreement.agreementPdfUrl && (
                     <a
-                      href={`http://localhost:8000${selectedAgreement.agreementPdfUrl}`}
+                      href={`${BASE_URL}${selectedAgreement.agreementPdfUrl}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-secondary"

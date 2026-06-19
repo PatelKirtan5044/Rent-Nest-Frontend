@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth, BASE_URL } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { FileText, CreditCard, CheckCircle, ShieldCheck, Download, AlertTriangle, X, Wallet } from 'lucide-react';
 
@@ -201,7 +201,7 @@ const RentPayments = () => {
                               <>
                                 {payment.receiptPdfUrl && (
                                   <a
-                                    href={`http://localhost:8000${payment.receiptPdfUrl}`}
+                                    href={`${BASE_URL}${payment.receiptPdfUrl}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="btn btn-secondary"
@@ -278,7 +278,7 @@ const RentPayments = () => {
                         <>
                           {payment.receiptPdfUrl && (
                             <a
-                              href={`http://localhost:8000${payment.receiptPdfUrl}`}
+                              href={`${BASE_URL}${payment.receiptPdfUrl}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="btn btn-secondary"

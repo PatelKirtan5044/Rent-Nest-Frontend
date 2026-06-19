@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth, BASE_URL } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { ChevronLeft, ChevronRight, Heart, BedDouble, Bath, Sparkles, Clock, User, Star, IndianRupee, ArrowLeft, Building, MapPin, X, FileText, Phone, Mail } from 'lucide-react';
 
@@ -124,7 +124,7 @@ const PropertyDetails = () => {
           {property.images && property.images.length > 0 ? (
             <>
               <img
-                src={property.images[activeImgIndex].startsWith('http') ? property.images[activeImgIndex] : `http://localhost:8000${property.images[activeImgIndex]}`}
+                src={property.images[activeImgIndex].startsWith('http') ? property.images[activeImgIndex] : `${BASE_URL}${property.images[activeImgIndex]}`}
                 alt="Property"
                 style={styles.sliderImg}
               />

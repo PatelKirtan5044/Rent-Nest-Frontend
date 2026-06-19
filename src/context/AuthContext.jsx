@@ -1,7 +1,10 @@
 import { createContext, useState, useEffect, useContext, useCallback } from 'react';
 
 const AuthContext = createContext(null);
-const API_URL = 'https://rent-nest-backend.onrender.com/api';
+export const BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8000'
+  : 'https://rent-nest-backend.onrender.com';
+const API_URL = `${BASE_URL}/api`;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

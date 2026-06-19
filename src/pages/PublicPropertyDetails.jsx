@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth, BASE_URL } from '../context/AuthContext';
 import { ChevronLeft, ChevronRight, Heart, BedDouble, Bath, Sparkles, Clock, User, Star, IndianRupee, LogIn, UserPlus, Sun, Moon, ArrowLeft, Building, MapPin, X } from 'lucide-react';
 import LogoIcon from '../components/LogoIcon';
 
@@ -143,7 +143,7 @@ const PublicPropertyDetails = () => {
             {property.images && property.images.length > 0 ? (
               <>
                 <img
-                  src={property.images[activeImgIndex].startsWith('http') ? property.images[activeImgIndex] : `http://localhost:8000${property.images[activeImgIndex]}`}
+                  src={property.images[activeImgIndex].startsWith('http') ? property.images[activeImgIndex] : `${BASE_URL}${property.images[activeImgIndex]}`}
                   alt="Property"
                   style={styles.sliderImg}
                 />

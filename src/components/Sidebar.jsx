@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth, BASE_URL } from '../context/AuthContext';
 import { Home, Building, FileText, CreditCard, Wrench, LogOut, Compass, ClipboardList } from 'lucide-react';
 import LogoIcon from './LogoIcon';
 
@@ -67,7 +67,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div style={styles.userInfo}>
           <div style={styles.userAvatar}>
             {user.profilePicture ? (
-              <img src={`http://localhost:8000${user.profilePicture}`} alt="Avatar" style={styles.avatarImg} />
+              <img src={`${BASE_URL}${user.profilePicture}`} alt="Avatar" style={styles.avatarImg} />
             ) : (
               user.name.charAt(0).toUpperCase()
             )}

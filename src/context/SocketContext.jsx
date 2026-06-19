@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext, useCallback } from 'react';
 import io from 'socket.io-client';
-import { useAuth } from './AuthContext';
+import { useAuth, BASE_URL } from './AuthContext';
 
 const SocketContext = createContext(null);
 
@@ -75,7 +75,7 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    const socketUrl = 'https://rent-nest-backend.onrender.com';
+    const socketUrl = BASE_URL;
     const newSocket = io(socketUrl, {
       transports: ['polling', 'websocket'],
       upgrade: true

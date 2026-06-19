@@ -1,4 +1,5 @@
 import { MapPin, Bed, Bath } from 'lucide-react';
+import { BASE_URL } from '../context/AuthContext';
 
 const PropertyCard = ({ property, onViewDetails }) => {
   return (
@@ -6,7 +7,7 @@ const PropertyCard = ({ property, onViewDetails }) => {
       <div style={styles.cardImageContainer}>
         {property.images && property.images.length > 0 ? (
           <img
-            src={property.images[0].startsWith('http') ? property.images[0] : `http://localhost:8000${property.images[0]}`}
+            src={property.images[0].startsWith('http') ? property.images[0] : `${BASE_URL}${property.images[0]}`}
             alt={property.title}
             style={styles.cardImg}
             className="property-card-img"
