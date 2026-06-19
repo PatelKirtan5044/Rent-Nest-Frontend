@@ -1,0 +1,106 @@
+import React from 'react';
+
+const LogoIcon = ({ size = 36 }) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 120"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: 'block', flexShrink: 0 }}
+    >
+      {/* Ground line and grass sketch */}
+      <path d="M 12 108 L 88 108" />
+      <path d="M 16 111 L 84 111" />
+      <path d="M 14 108 L 16 104" />
+      <path d="M 86 108 L 84 104" />
+
+      {/* First Story Base Steps */}
+      <path d="M 40 108 L 42 104 L 58 104 L 60 108" />
+      
+      {/* First Story Walls */}
+      <path d="M 23 108 L 26 82 L 74 82 L 77 108" />
+      
+      {/* First Story Double Arched Doors */}
+      <path d="M 44 104 L 44 86 C 44 82, 56 82, 56 86 L 56 104 Z" />
+      <path d="M 50 82 L 50 104" />
+      
+      {/* Door handles details */}
+      <circle cx="48" cy="94" r="0.8" fill="currentColor" />
+      <circle cx="52" cy="94" r="0.8" fill="currentColor" />
+      
+      {/* First Floor Left Window */}
+      <rect x="29" y="89" width="8" height="11" rx="1" />
+      <path d="M 33 89 L 33 100" />
+      <path d="M 29 94.5 L 37 94.5" />
+      
+      {/* First Floor Right Window */}
+      <rect x="63" y="89" width="8" height="11" rx="1" />
+      <path d="M 67 89 L 67 100" />
+      <path d="M 63 94.5 L 71 94.5" />
+
+      {/* Wrapping Balcony structure */}
+      <polygon points="10,82 90,82 84,73 16,73" fill="none" />
+      <path d="M 10 82 L 90 82" />
+      <path d="M 16 73 L 84 73" />
+      
+      {/* Balcony railing diagonal/vertical lines */}
+      <path d="M 13 82 L 18 73" />
+      <path d="M 20 82 L 23 73" />
+      <path d="M 27 82 L 29 73" />
+      <path d="M 34 82 L 35 73" />
+      <path d="M 41 82 L 40 73" />
+      <path d="M 48 82 L 47 73" />
+      <path d="M 52 82 L 53 73" />
+      <path d="M 59 82 L 60 73" />
+      <path d="M 66 82 L 65 73" />
+      <path d="M 73 82 L 71 73" />
+      <path d="M 80 82 L 77 73" />
+      <path d="M 87 82 L 82 73" />
+
+      {/* Second Story Walls */}
+      <path d="M 26 73 L 28 51 L 72 51 L 74 73" />
+      
+      {/* Second Story Left Side Bay Window */}
+      <path d="M 19 73 L 21 55 L 26 55" />
+      <path d="M 21 73 L 21 55" />
+      
+      {/* Second Story Right Side Bay Window */}
+      <path d="M 81 73 L 79 55 L 74 55" />
+      <path d="M 79 73 L 79 55" />
+      
+      {/* Second Floor Middle Windows */}
+      <rect x="34" y="55" width="10" height="13" rx="1" />
+      <path d="M 39 55 L 39 68" />
+      <path d="M 34 61.5 L 44 61.5" />
+
+      <rect x="56" y="55" width="10" height="13" rx="1" />
+      <path d="M 61 55 L 61 68" />
+      <path d="M 56 61.5 L 66 61.5" />
+
+      {/* Roof/Gable Lines (Overlapping eaves) */}
+      <path d="M 18 51 L 50 18 L 82 51" />
+      <path d="M 22 51 L 50 22 L 78 51" />
+
+      {/* Chimney on the right side */}
+      <path d="M 68 35 L 68 22 L 74 22 L 74 41" />
+      <path d="M 66 22 L 76 22" />
+
+      {/* Gable circular window under the roof peak */}
+      <circle cx="50" cy="34" r="5" />
+      <path d="M 50 29 L 50 39" />
+      <path d="M 45 34 L 55 34" />
+      
+      {/* Third Floor Middle Double Window */}
+      <rect x="44" y="43" width="12" height="8" rx="1" />
+      <path d="M 50 43 L 50 51" />
+      <path d="M 44 47 L 56 47" />
+    </svg>
+  );
+};
+
+export default LogoIcon;
