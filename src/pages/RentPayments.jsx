@@ -201,7 +201,7 @@ const RentPayments = () => {
                               <>
                                 {payment.receiptPdfUrl && (
                                   <a
-                                    href={`${BASE_URL}${payment.receiptPdfUrl}`}
+                                    href={payment.receiptPdfUrl.startsWith('http') ? payment.receiptPdfUrl : `${BASE_URL}${payment.receiptPdfUrl}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="btn btn-secondary"
@@ -278,7 +278,7 @@ const RentPayments = () => {
                         <>
                           {payment.receiptPdfUrl && (
                             <a
-                              href={`${BASE_URL}${payment.receiptPdfUrl}`}
+                              href={payment.receiptPdfUrl.startsWith('http') ? payment.receiptPdfUrl : `${BASE_URL}${payment.receiptPdfUrl}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="btn btn-secondary"

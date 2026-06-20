@@ -169,7 +169,7 @@ const AgreementManagement = () => {
                   </div>
                   {selectedAgreement.agreementPdfUrl && (
                     <a
-                      href={`${BASE_URL}${selectedAgreement.agreementPdfUrl}`}
+                      href={selectedAgreement.agreementPdfUrl.startsWith('http') ? selectedAgreement.agreementPdfUrl : `${BASE_URL}${selectedAgreement.agreementPdfUrl}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-secondary"
