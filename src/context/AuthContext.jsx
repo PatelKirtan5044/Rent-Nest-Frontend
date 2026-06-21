@@ -23,24 +23,12 @@ export const AuthProvider = ({ children }) => {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
+    let res;
     try {
-      const res = await fetch(`${API_URL}${endpoint}`, {
+      res = await fetch(`${API_URL}${endpoint}`, {
         ...options,
         headers
       });
-
-      // Render free tier gateway spin-up errors (502 Bad Gateway, 503 Service Unavailable, 504 Gateway Timeout)
-      if ([502, 503, 504].includes(res.status) && retries > 0) {
-        console.warn(`Gateway response ${res.status}. Server might be sleeping. Retrying in ${delay}ms... (${retries} retries left)`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-        return apiFetch(endpoint, options, retries - 1, delay);
-      }
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message || 'API request failed.');
-      }
-      return data;
     } catch (err) {
       // If it's a network/connection error (occurs if request is rejected during container boot binding)
       if (retries > 0) {
@@ -50,6 +38,19 @@ export const AuthProvider = ({ children }) => {
       }
       throw err;
     }
+
+    // Render free tier gateway spin-up errors (502 Bad Gateway, 503 Service Unavailable, 504 Gateway Timeout)
+    if ([502, 503, 504].includes(res.status) && retries > 0) {
+      console.warn(`Gateway response ${res.status}. Server might be sleeping. Retrying in ${delay}ms... (${retries} retries left)`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return apiFetch(endpoint, options, retries - 1, delay);
+    }
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || 'API request failed.');
+    }
+    return data;
   }, [token]);
 
   // Helper multipart form request wrapper (for image uploads)
