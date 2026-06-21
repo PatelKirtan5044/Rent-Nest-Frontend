@@ -7,6 +7,7 @@
   --bg-primary: #0a0b10;
   --bg-secondary: #121420;
   --bg-glass: rgba(18, 20, 32, 0.7);
+  --card-bg: rgba(18, 20, 32, 0.7);
   --border-glass: rgba(255, 255, 255, 0.08);
   --border-glass-glow: rgba(59, 130, 246, 0.2);
   
@@ -330,6 +331,7 @@ button, input, textarea, select {
   --bg-primary: #f4f6fa;
   --bg-secondary: #ffffff;
   --bg-glass: rgba(255, 255, 255, 0.75);
+  --card-bg: #ffffff;
   --border-glass: rgba(15, 23, 42, 0.08);
   --border-glass-glow: rgba(37, 99, 235, 0.15);
   
@@ -608,16 +610,36 @@ button, input, textarea, select {
   
   /* Public Navbar sizing */
   .public-navbar {
-    padding: 0 16px !important;
-    height: 70px !important;
+    padding: 0 12px !important;
+    height: 64px !important;
   }
   .public-nav-actions {
-    gap: 8px !important;
+    gap: 6px !important;
   }
   .public-nav-login-btn,
   .public-nav-signup-btn {
-    padding: 6px 12px !important;
-    font-size: 0.82rem !important;
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+    gap: 4px !important;
+  }
+  .public-nav-login-btn svg,
+  .public-nav-signup-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .public-nav-logo {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .public-nav-brand-text {
+    font-size: 1.15rem !important;
+    margin-left: 6px !important;
+  }
+  
+  @media (max-width: 380px) {
+    .public-nav-brand-text {
+      display: none !important; /* Hide brand text on very small screen to make room for login/signup buttons */
+    }
   }
   
   /* Checkout & gateway grid stacking */
@@ -917,5 +939,58 @@ button, input, textarea, select {
 
 .premium-submit-btn:active {
   transform: translateY(0) !important;
+}
+
+/* --- AUTHENTICATION PAGES STYLING (LOGIN/SIGNUP) --- */
+.auth-page {
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 45%), 
+              radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.08) 0%, transparent 45%), 
+              var(--bg-primary) !important;
+  padding: 24px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.auth-card {
+  max-width: 450px !important;
+  width: 100% !important;
+  padding: 40px !important;
+  border-radius: 24px !important;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--border-glass) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  z-index: 1 !important;
+  position: relative !important;
+  transition: var(--transition) !important;
+}
+
+/* Auth card specific padding on Signup to fit elements nicely */
+.auth-card-signup {
+  max-width: 480px !important;
+}
+
+@media (max-width: 576px) {
+  .auth-page {
+    padding: 16px 12px !important;
+  }
+  .auth-card {
+    padding: 24px 18px !important;
+    border-radius: 16px !important;
+  }
+  .auth-card-signup {
+    padding: 22px 14px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .auth-card {
+    padding: 20px 12px !important;
+  }
 }
 

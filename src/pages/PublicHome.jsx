@@ -75,8 +75,8 @@ const PublicHome = () => {
       {/* Public Navbar */}
       <header style={styles.navbar} className="public-navbar">
         <div style={styles.navBrand} className="public-nav-brand" onClick={() => navigate('/')}>
-          <LogoIcon size={44} />
-          <div style={styles.brandName}>
+          <LogoIcon size={44} className="public-nav-logo" />
+          <div style={styles.brandName} className="public-nav-brand-text">
             <span style={styles.brandWhite}>Rent</span>
             <span style={styles.brandAccent}>Nest</span>
           </div>

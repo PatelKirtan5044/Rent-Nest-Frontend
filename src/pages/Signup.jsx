@@ -36,13 +36,13 @@ const Signup = () => {
   };
 
   return (
-    <div style={styles.page}>
+    <div className="auth-page">
       {/* Background Decorative Glow Orbs */}
       <div style={styles.ambientGlow1} />
       <div style={styles.ambientGlow2} />
 
       {/* Centered Glassmorphic Portal Card */}
-      <div style={styles.container} className="glass-panel">
+      <div className="auth-card auth-card-signup glass-panel">
         <div style={styles.header}>
           <div style={styles.logoWrapper}>
             <LogoIcon size={50} />
@@ -171,17 +171,6 @@ const Signup = () => {
 };
 
 const styles = {
-  page: {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.08) 0%, transparent 45%), var(--bg-primary)',
-    padding: '40px 24px',
-    fontFamily: "'Outfit', 'Inter', sans-serif",
-    position: 'relative',
-    overflow: 'hidden'
-  },
   ambientGlow1: {
     position: 'absolute',
     width: '350px',
@@ -201,20 +190,6 @@ const styles = {
     background: 'radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%)',
     zIndex: 0,
     pointerEvents: 'none'
-  },
-  container: {
-    maxWidth: '480px',
-    width: '100%',
-    padding: '40px',
-    borderRadius: '24px',
-    background: 'var(--card-bg)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    border: '1px solid var(--border-glass)',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-    zIndex: 1,
-    position: 'relative',
-    transition: 'var(--transition)'
   },
   header: {
     display: 'flex',

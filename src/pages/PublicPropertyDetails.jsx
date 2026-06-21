@@ -107,23 +107,23 @@ const PublicPropertyDetails = () => {
   return (
     <div style={styles.container}>
       {/* Public Navbar */}
-      <header style={styles.navbar}>
-        <div style={styles.navBrand} onClick={() => navigate('/')}>
-          <LogoIcon size={44} />
-          <div style={styles.brandName}>
+      <header style={styles.navbar} className="public-navbar">
+        <div style={styles.navBrand} className="public-nav-brand" onClick={() => navigate('/')}>
+          <LogoIcon size={44} className="public-nav-logo" />
+          <div style={styles.brandName} className="public-nav-brand-text">
             <span style={styles.brandWhite}>Rent</span>
             <span style={styles.brandAccent}>Nest</span>
           </div>
         </div>
-        <div style={styles.navActions}>
+        <div style={styles.navActions} className="public-nav-actions">
           <button onClick={toggleTheme} style={styles.themeBtn} className="theme-btn" title="Toggle Light/Dark Theme">
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
-          <button onClick={() => navigate('/login')} style={styles.loginBtn} className="btn btn-secondary">
+          <button onClick={() => navigate('/login')} style={styles.loginBtn} className="btn btn-secondary public-nav-login-btn">
             <LogIn size={16} />
             <span>Login</span>
           </button>
-          <button onClick={() => navigate('/signup')} style={styles.signupBtn} className="btn btn-primary">
+          <button onClick={() => navigate('/signup')} style={styles.signupBtn} className="btn btn-primary public-nav-signup-btn">
             <UserPlus size={16} />
             <span>Sign Up</span>
           </button>
