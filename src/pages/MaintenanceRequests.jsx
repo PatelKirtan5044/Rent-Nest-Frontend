@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
-import { Wrench, Plus, User, Phone, ClipboardList, Clock, CheckCircle, MessageSquare, X, Upload } from 'lucide-react';
+import { Wrench, Plus, User, Phone, ClipboardList, Clock, CheckCircle, MessageSquare, X, Upload, Building, AlertTriangle } from 'lucide-react';
 
 const MaintenanceRequests = () => {
   const { user, apiFetch, apiUpload } = useAuth();
@@ -261,90 +261,108 @@ const MaintenanceRequests = () => {
       {/* --- MODAL: RAISE TICKET (Tenant only) --- */}
       {showAddModal && (
         <div className="modal-overlay" onClick={() => setShowAddModal(false)}>
-          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '520px', padding: '32px' }}>
             <div style={styles.modalHeader}>
-              <h2>Raise Maintenance Request</h2>
-              <button onClick={() => setShowAddModal(false)} style={styles.closeBtn}>
-                <X size={20} />
+              <h2 style={styles.modalTitle}>Raise Maintenance Request</h2>
+              <button onClick={() => setShowAddModal(false)} style={styles.closeBtn} className="btn-close-hover">
+                <X size={18} />
               </button>
             </div>
 
-            <form onSubmit={handleRaiseTicket} style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
+            <form onSubmit={handleRaiseTicket} style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '8px' }}>
               <div className="form-group">
                 <label className="form-label">Select Active Agreement Property</label>
-                <select
-                  required
-                  onChange={(e) => setNewTicket({ ...newTicket, propertyId: e.target.value })}
-                  className="form-select"
-                >
-                  <option value="">-- Choose Property --</option>
-                  {leases.map((lease) => (
-                    <option key={lease._id} value={lease.property._id}>
-                      {lease.property.title}
-                    </option>
-                  ))}
-                </select>
+                <div style={styles.modalInputWrapper}>
+                  <Building size={16} style={styles.modalInputIcon} />
+                  <select
+                    required
+                    onChange={(e) => setNewTicket({ ...newTicket, propertyId: e.target.value })}
+                    className="form-select"
+                    style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                  >
+                    <option value="">-- Choose Property --</option>
+                    {leases.map((lease) => (
+                      <option key={lease._id} value={lease.property._id}>
+                        {lease.property.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Issue Title</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Kitchen Pipe Burst"
-                  value={newTicket.title}
-                  onChange={(e) => setNewTicket({ ...newTicket, title: e.target.value })}
-                  style={styles.formInput}
-                />
+                <div style={styles.modalInputWrapper}>
+                  <Wrench size={16} style={styles.modalInputIcon} />
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Kitchen Pipe Burst"
+                    value={newTicket.title}
+                    onChange={(e) => setNewTicket({ ...newTicket, title: e.target.value })}
+                    style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                  />
+                </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Detailed Description</label>
-                <textarea
-                  required
-                  placeholder="Describe what needs to be repaired..."
-                  rows="3"
-                  value={newTicket.description}
-                  onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
-                  style={{ ...styles.formInput, resize: 'none' }}
-                />
+                <div style={styles.modalInputWrapper}>
+                  <MessageSquare size={16} style={{ ...styles.modalInputIcon, top: '14px' }} />
+                  <textarea
+                    required
+                    placeholder="Describe what needs to be repaired..."
+                    rows="3"
+                    value={newTicket.description}
+                    onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
+                    style={{ ...styles.modalTextAreaField, paddingLeft: '44px' }}
+                  />
+                </div>
               </div>
 
               <div style={styles.grid2Col} className="maintenance-form-grid">
                 <div className="form-group">
                   <label className="form-label">Category</label>
-                  <select
-                    value={newTicket.category}
-                    onChange={(e) => setNewTicket({ ...newTicket, category: e.target.value })}
-                    className="form-select"
-                  >
-                    <option value="plumbing">Plumbing</option>
-                    <option value="electrical">Electrical</option>
-                    <option value="appliance">Appliance</option>
-                    <option value="hvac">HVAC / Heating</option>
-                    <option value="structural">Structural</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <div style={styles.modalInputWrapper}>
+                    <ClipboardList size={16} style={styles.modalInputIcon} />
+                    <select
+                      value={newTicket.category}
+                      onChange={(e) => setNewTicket({ ...newTicket, category: e.target.value })}
+                      className="form-select"
+                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                    >
+                      <option value="plumbing">Plumbing</option>
+                      <option value="electrical">Electrical</option>
+                      <option value="appliance">Appliance</option>
+                      <option value="hvac">HVAC / Heating</option>
+                      <option value="structural">Structural</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label className="form-label">Priority</label>
-                  <select
-                    value={newTicket.priority}
-                    onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value })}
-                    className="form-select"
-                  >
-                    <option value="low">Low Priority</option>
-                    <option value="medium">Medium Priority</option>
-                    <option value="high">High Priority</option>
-                  </select>
+                  <div style={styles.modalInputWrapper}>
+                    <AlertTriangle size={16} style={styles.modalInputIcon} />
+                    <select
+                      value={newTicket.priority}
+                      onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value })}
+                      className="form-select"
+                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                    >
+                      <option value="low">Low Priority</option>
+                      <option value="medium">Medium Priority</option>
+                      <option value="high">High Priority</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Reference Photos</label>
-                <div style={styles.uploadBox}>
-                  <Upload size={20} color="var(--text-secondary)" />
+                <div style={styles.uploadBox} className="upload-box-hover">
+                  <Upload size={22} color="var(--primary)" />
                   <input
                     type="file"
                     multiple
@@ -352,13 +370,14 @@ const MaintenanceRequests = () => {
                     onChange={(e) => setSelectedImages(Array.from(e.target.files))}
                     style={styles.fileInput}
                   />
-                  <span>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '500', color: 'var(--text-primary)' }}>
                     {selectedImages.length > 0 ? `${selectedImages.length} image(s) selected` : 'Click to Upload Screenshots'}
                   </span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>PNG, JPG or JPEG up to 10MB</span>
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={{ padding: '12px' }}>
+              <button type="submit" className="btn btn-primary" style={styles.submitBtn}>
                 Submit Maintenance Ticket
               </button>
             </form>
@@ -369,65 +388,78 @@ const MaintenanceRequests = () => {
       {/* --- MODAL: UPDATE TICKET (Landlord only) --- */}
       {showUpdateModal && selectedTicket && (
         <div className="modal-overlay" onClick={() => setShowUpdateModal(false)}>
-          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '480px' }}>
+          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px', padding: '32px' }}>
             <div style={styles.modalHeader}>
-              <h2>Update Ticket Status</h2>
-              <button onClick={() => setShowUpdateModal(false)} style={styles.closeBtn}>
-                <X size={20} />
+              <h2 style={styles.modalTitle}>Update Ticket Status</h2>
+              <button onClick={() => setShowUpdateModal(false)} style={styles.closeBtn} className="btn-close-hover">
+                <X size={18} />
               </button>
             </div>
 
-            <form onSubmit={handleUpdateTicket} style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
+            <form onSubmit={handleUpdateTicket} style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '8px' }}>
               <div className="form-group">
                 <label className="form-label">Ticket Status</label>
-                <select
-                  value={updateForm.status}
-                  onChange={(e) => setUpdateForm({ ...updateForm, status: e.target.value })}
-                  className="form-select"
-                >
-                  <option value="open">Open</option>
-                  <option value="assigned">Assigned</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="resolved">Resolved</option>
-                  <option value="closed">Closed</option>
-                </select>
+                <div style={styles.modalInputWrapper}>
+                  <ClipboardList size={16} style={styles.modalInputIcon} />
+                  <select
+                    value={updateForm.status}
+                    onChange={(e) => setUpdateForm({ ...updateForm, status: e.target.value })}
+                    className="form-select"
+                    style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                  >
+                    <option value="open">Open</option>
+                    <option value="assigned">Assigned</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="closed">Closed</option>
+                  </select>
+                </div>
               </div>
 
               <div style={styles.grid2Col} className="maintenance-form-grid">
                 <div className="form-group">
                   <label className="form-label">Technician Name</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Bob Smith"
-                    value={updateForm.assigneeName}
-                    onChange={(e) => setUpdateForm({ ...updateForm, assigneeName: e.target.value })}
-                    style={styles.formInput}
-                  />
+                  <div style={styles.modalInputWrapper}>
+                    <User size={16} style={styles.modalInputIcon} />
+                    <input
+                      type="text"
+                      placeholder="e.g. Bob Smith"
+                      value={updateForm.assigneeName}
+                      onChange={(e) => setUpdateForm({ ...updateForm, assigneeName: e.target.value })}
+                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                    />
+                  </div>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Technician Phone</label>
-                  <input
-                    type="tel"
-                    placeholder="e.g. 555-0199"
-                    value={updateForm.assigneeContact}
-                    onChange={(e) => setUpdateForm({ ...updateForm, assigneeContact: e.target.value })}
-                    style={styles.formInput}
-                  />
+                  <div style={styles.modalInputWrapper}>
+                    <Phone size={16} style={styles.modalInputIcon} />
+                    <input
+                      type="tel"
+                      placeholder="e.g. 555-0199"
+                      value={updateForm.assigneeContact}
+                      onChange={(e) => setUpdateForm({ ...updateForm, assigneeContact: e.target.value })}
+                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                    />
+                  </div>
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Update Log Comments</label>
-                <textarea
-                  placeholder="Explain status changes or add instructions..."
-                  rows="3"
-                  value={updateForm.comments}
-                  onChange={(e) => setUpdateForm({ ...updateForm, comments: e.target.value })}
-                  style={{ ...styles.formInput, resize: 'none' }}
-                />
+                <div style={styles.modalInputWrapper}>
+                  <MessageSquare size={16} style={{ ...styles.modalInputIcon, top: '14px' }} />
+                  <textarea
+                    placeholder="Explain status changes or add instructions..."
+                    rows="3"
+                    value={updateForm.comments}
+                    onChange={(e) => setUpdateForm({ ...updateForm, comments: e.target.value })}
+                    style={{ ...styles.modalTextAreaField, paddingLeft: '44px' }}
+                  />
+                </div>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={{ padding: '12px' }}>
+              <button type="submit" className="btn btn-primary" style={styles.submitBtn}>
                 Save Ticket Update
               </button>
             </form>
@@ -676,22 +708,79 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottom: '1px solid var(--border-glass)',
-    paddingBottom: '14px'
+    paddingBottom: '16px',
+    marginBottom: '16px'
+  },
+  modalTitle: {
+    fontSize: '1.35rem',
+    fontWeight: '800',
+    background: 'var(--primary-gradient)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    letterSpacing: '-0.02em'
   },
   closeBtn: {
-    background: 'none',
-    border: 'none',
-    color: 'var(--text-secondary)',
-    cursor: 'pointer'
-  },
-  formInput: {
     background: 'var(--bg-primary)',
     border: '1px solid var(--border-glass)',
-    borderRadius: 'var(--radius-sm)',
-    padding: '12px 16px',
-    color: 'var(--text-primary)',
-    fontSize: '0.9rem',
+    color: 'var(--text-secondary)',
+    cursor: 'pointer',
+    width: '32px',
+    height: '32px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'var(--transition)'
+  },
+  modalInputWrapper: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
     width: '100%'
+  },
+  modalInputIcon: {
+    position: 'absolute',
+    left: '16px',
+    color: 'var(--text-muted)',
+    pointerEvents: 'none'
+  },
+  modalInputField: {
+    width: '100%',
+    background: 'var(--bg-primary)',
+    border: '1px solid var(--border-glass)',
+    borderRadius: '12px',
+    padding: '12px 16px 12px 48px',
+    color: 'var(--text-primary)',
+    fontSize: '0.92rem',
+    transition: 'var(--transition)',
+    outline: 'none'
+  },
+  modalTextAreaField: {
+    width: '100%',
+    background: 'var(--bg-primary)',
+    border: '1px solid var(--border-glass)',
+    borderRadius: '12px',
+    padding: '14px 16px 14px 48px',
+    color: 'var(--text-primary)',
+    fontSize: '0.92rem',
+    transition: 'var(--transition)',
+    outline: 'none',
+    resize: 'none',
+    minHeight: '85px'
+  },
+  submitBtn: {
+    width: '100%',
+    padding: '13px 24px',
+    borderRadius: '12px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    fontSize: '0.95rem',
+    fontWeight: '700',
+    cursor: 'pointer',
+    marginTop: '8px',
+    boxShadow: 'var(--shadow-sm)'
   },
   grid2Col: {
     display: 'grid',
@@ -699,9 +788,9 @@ const styles = {
     gap: '16px'
   },
   uploadBox: {
-    border: '1px dashed var(--border-glass)',
-    borderRadius: 'var(--radius-sm)',
-    padding: '20px',
+    border: '2px dashed var(--border-glass)',
+    borderRadius: '12px',
+    padding: '22px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -709,10 +798,9 @@ const styles = {
     gap: '8px',
     cursor: 'pointer',
     position: 'relative',
-    background: 'rgba(255,255,255,0.01)',
+    background: 'rgba(255, 255, 255, 0.01)',
     textAlign: 'center',
-    fontSize: '0.82rem',
-    color: 'var(--text-secondary)'
+    transition: 'var(--transition)'
   },
   fileInput: {
     position: 'absolute',

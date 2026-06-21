@@ -668,4 +668,14 @@ button, input, textarea, select {
   }
 }
 
+/* Modal UI micro-interactions */
+.btn-close-hover:hover {
+  background: var(--border-glass-glow) !important;
+  color: var(--text-primary) !important;
+  transform: rotate(90deg);
+}
 
+.upload-box-hover:hover {
+  border-color: var(--primary) !important;
+  background: rgba(59, 130, 246, 0.03) !important;
+}
