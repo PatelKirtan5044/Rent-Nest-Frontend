@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
-import { Wrench, Plus, User, Phone, ClipboardList, Clock, CheckCircle, MessageSquare, X, Upload, Building, AlertTriangle } from 'lucide-react';
+import { Wrench, Plus, User, Phone, ClipboardList, Clock, CheckCircle, MessageSquare, X, Upload, Building, AlertTriangle, ChevronDown } from 'lucide-react';
 
 const MaintenanceRequests = () => {
   const { user, apiFetch, apiUpload } = useAuth();
@@ -261,10 +261,10 @@ const MaintenanceRequests = () => {
       {/* --- MODAL: RAISE TICKET (Tenant only) --- */}
       {showAddModal && (
         <div className="modal-overlay" onClick={() => setShowAddModal(false)}>
-          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '520px', padding: '32px' }}>
-            <div style={styles.modalHeader}>
-              <h2 style={styles.modalTitle}>Raise Maintenance Request</h2>
-              <button onClick={() => setShowAddModal(false)} style={styles.closeBtn} className="btn-close-hover">
+          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '520px' }}>
+            <div className="modal-header">
+              <h2 className="modal-title">Raise Maintenance Request</h2>
+              <button onClick={() => setShowAddModal(false)} className="btn-close-hover">
                 <X size={18} />
               </button>
             </div>
@@ -272,13 +272,11 @@ const MaintenanceRequests = () => {
             <form onSubmit={handleRaiseTicket} style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '8px' }}>
               <div className="form-group">
                 <label className="form-label">Select Active Agreement Property</label>
-                <div style={styles.modalInputWrapper}>
-                  <Building size={16} style={styles.modalInputIcon} />
+                <div className="modal-input-wrapper">
                   <select
                     required
                     onChange={(e) => setNewTicket({ ...newTicket, propertyId: e.target.value })}
-                    className="form-select"
-                    style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                    className="modal-input-field modal-select-field"
                   >
                     <option value="">-- Choose Property --</option>
                     {leases.map((lease) => (
@@ -287,49 +285,49 @@ const MaintenanceRequests = () => {
                       </option>
                     ))}
                   </select>
+                  <Building size={16} className="modal-input-icon-left" />
+                  <ChevronDown size={16} className="modal-input-icon-right" />
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Issue Title</label>
-                <div style={styles.modalInputWrapper}>
-                  <Wrench size={16} style={styles.modalInputIcon} />
+                <div className="modal-input-wrapper">
                   <input
                     type="text"
                     required
                     placeholder="e.g. Kitchen Pipe Burst"
                     value={newTicket.title}
                     onChange={(e) => setNewTicket({ ...newTicket, title: e.target.value })}
-                    style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                    className="modal-input-field"
                   />
+                  <Wrench size={16} className="modal-input-icon-left" />
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Detailed Description</label>
-                <div style={styles.modalInputWrapper}>
-                  <MessageSquare size={16} style={{ ...styles.modalInputIcon, top: '14px' }} />
+                <div className="modal-input-wrapper">
                   <textarea
                     required
                     placeholder="Describe what needs to be repaired..."
                     rows="3"
                     value={newTicket.description}
                     onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
-                    style={{ ...styles.modalTextAreaField, paddingLeft: '44px' }}
+                    className="modal-textarea-field"
                   />
+                  <MessageSquare size={16} className="modal-input-icon-left" />
                 </div>
               </div>
 
               <div style={styles.grid2Col} className="maintenance-form-grid">
                 <div className="form-group">
                   <label className="form-label">Category</label>
-                  <div style={styles.modalInputWrapper}>
-                    <ClipboardList size={16} style={styles.modalInputIcon} />
+                  <div className="modal-input-wrapper">
                     <select
                       value={newTicket.category}
                       onChange={(e) => setNewTicket({ ...newTicket, category: e.target.value })}
-                      className="form-select"
-                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                      className="modal-input-field modal-select-field"
                     >
                       <option value="plumbing">Plumbing</option>
                       <option value="electrical">Electrical</option>
@@ -338,30 +336,32 @@ const MaintenanceRequests = () => {
                       <option value="structural">Structural</option>
                       <option value="other">Other</option>
                     </select>
+                    <ClipboardList size={16} className="modal-input-icon-left" />
+                    <ChevronDown size={16} className="modal-input-icon-right" />
                   </div>
                 </div>
 
                 <div className="form-group">
                   <label className="form-label">Priority</label>
-                  <div style={styles.modalInputWrapper}>
-                    <AlertTriangle size={16} style={styles.modalInputIcon} />
+                  <div className="modal-input-wrapper">
                     <select
                       value={newTicket.priority}
                       onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value })}
-                      className="form-select"
-                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                      className="modal-input-field modal-select-field"
                     >
                       <option value="low">Low Priority</option>
                       <option value="medium">Medium Priority</option>
                       <option value="high">High Priority</option>
                     </select>
+                    <AlertTriangle size={16} className="modal-input-icon-left" />
+                    <ChevronDown size={16} className="modal-input-icon-right" />
                   </div>
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Reference Photos</label>
-                <div style={styles.uploadBox} className="upload-box-hover">
+                <div className="premium-upload-box">
                   <Upload size={22} color="var(--primary)" />
                   <input
                     type="file"
@@ -370,14 +370,14 @@ const MaintenanceRequests = () => {
                     onChange={(e) => setSelectedImages(Array.from(e.target.files))}
                     style={styles.fileInput}
                   />
-                  <span style={{ fontSize: '0.88rem', fontWeight: '500', color: 'var(--text-primary)' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '600', color: 'var(--text-primary)' }}>
                     {selectedImages.length > 0 ? `${selectedImages.length} image(s) selected` : 'Click to Upload Screenshots'}
                   </span>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>PNG, JPG or JPEG up to 10MB</span>
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={styles.submitBtn}>
+              <button type="submit" className="premium-submit-btn">
                 Submit Maintenance Ticket
               </button>
             </form>
@@ -388,10 +388,10 @@ const MaintenanceRequests = () => {
       {/* --- MODAL: UPDATE TICKET (Landlord only) --- */}
       {showUpdateModal && selectedTicket && (
         <div className="modal-overlay" onClick={() => setShowUpdateModal(false)}>
-          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px', padding: '32px' }}>
-            <div style={styles.modalHeader}>
-              <h2 style={styles.modalTitle}>Update Ticket Status</h2>
-              <button onClick={() => setShowUpdateModal(false)} style={styles.closeBtn} className="btn-close-hover">
+          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <div className="modal-header">
+              <h2 className="modal-title">Update Ticket Status</h2>
+              <button onClick={() => setShowUpdateModal(false)} className="btn-close-hover">
                 <X size={18} />
               </button>
             </div>
@@ -399,13 +399,11 @@ const MaintenanceRequests = () => {
             <form onSubmit={handleUpdateTicket} style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '8px' }}>
               <div className="form-group">
                 <label className="form-label">Ticket Status</label>
-                <div style={styles.modalInputWrapper}>
-                  <ClipboardList size={16} style={styles.modalInputIcon} />
+                <div className="modal-input-wrapper">
                   <select
                     value={updateForm.status}
                     onChange={(e) => setUpdateForm({ ...updateForm, status: e.target.value })}
-                    className="form-select"
-                    style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                    className="modal-input-field modal-select-field"
                   >
                     <option value="open">Open</option>
                     <option value="assigned">Assigned</option>
@@ -413,53 +411,55 @@ const MaintenanceRequests = () => {
                     <option value="resolved">Resolved</option>
                     <option value="closed">Closed</option>
                   </select>
+                  <ClipboardList size={16} className="modal-input-icon-left" />
+                  <ChevronDown size={16} className="modal-input-icon-right" />
                 </div>
               </div>
 
               <div style={styles.grid2Col} className="maintenance-form-grid">
                 <div className="form-group">
                   <label className="form-label">Technician Name</label>
-                  <div style={styles.modalInputWrapper}>
-                    <User size={16} style={styles.modalInputIcon} />
+                  <div className="modal-input-wrapper">
                     <input
                       type="text"
                       placeholder="e.g. Bob Smith"
                       value={updateForm.assigneeName}
                       onChange={(e) => setUpdateForm({ ...updateForm, assigneeName: e.target.value })}
-                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                      className="modal-input-field"
                     />
+                    <User size={16} className="modal-input-icon-left" />
                   </div>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Technician Phone</label>
-                  <div style={styles.modalInputWrapper}>
-                    <Phone size={16} style={styles.modalInputIcon} />
+                  <div className="modal-input-wrapper">
                     <input
                       type="tel"
                       placeholder="e.g. 555-0199"
                       value={updateForm.assigneeContact}
                       onChange={(e) => setUpdateForm({ ...updateForm, assigneeContact: e.target.value })}
-                      style={{ ...styles.modalInputField, paddingLeft: '44px' }}
+                      className="modal-input-field"
                     />
+                    <Phone size={16} className="modal-input-icon-left" />
                   </div>
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Update Log Comments</label>
-                <div style={styles.modalInputWrapper}>
-                  <MessageSquare size={16} style={{ ...styles.modalInputIcon, top: '14px' }} />
+                <div className="modal-input-wrapper">
                   <textarea
                     placeholder="Explain status changes or add instructions..."
                     rows="3"
                     value={updateForm.comments}
                     onChange={(e) => setUpdateForm({ ...updateForm, comments: e.target.value })}
-                    style={{ ...styles.modalTextAreaField, paddingLeft: '44px' }}
+                    className="modal-textarea-field"
                   />
+                  <MessageSquare size={16} className="modal-input-icon-left" />
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={styles.submitBtn}>
+              <button type="submit" className="premium-submit-btn">
                 Save Ticket Update
               </button>
             </form>
