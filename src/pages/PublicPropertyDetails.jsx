@@ -68,6 +68,16 @@ const PublicPropertyDetails = () => {
     fetchProperty();
   }, [id, apiFetch]);
 
+  useEffect(() => {
+    if (!property || !property.images || property.images.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setActiveImgIndex((prev) => (prev === property.images.length - 1 ? 0 : prev + 1));
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [property, activeImgIndex]);
+
   const triggerAuthPrompt = () => {
     setShowAuthPrompt(true);
   };
