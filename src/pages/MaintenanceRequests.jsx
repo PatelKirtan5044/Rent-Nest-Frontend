@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
-import { Wrench, Plus, User, Phone, ClipboardList, Clock, CheckCircle, MessageSquare, X, Upload, Building, AlertTriangle, ChevronDown } from 'lucide-react';
+import { Wrench, Plus, User, Phone, ClipboardList, Clock, CheckCircle, MessageSquare, X, XCircle, Upload, Building, AlertTriangle, ChevronDown } from 'lucide-react';
 
 const MaintenanceRequests = () => {
   const { user, apiFetch, apiUpload } = useAuth();
@@ -120,6 +120,31 @@ const MaintenanceRequests = () => {
     setShowUpdateModal(true);
   };
 
+  const getStatusDetails = (status) => {
+    const lowerStatus = status?.toLowerCase();
+    if (lowerStatus === 'closed') {
+      return {
+        icon: <XCircle size={14} color="var(--danger)" />,
+        color: 'var(--danger)'
+      };
+    } else if (lowerStatus === 'resolved') {
+      return {
+        icon: <CheckCircle size={14} color="var(--success)" />,
+        color: 'var(--success)'
+      };
+    } else if (lowerStatus === 'in_progress') {
+      return {
+        icon: <Clock size={14} color="var(--warning)" />,
+        color: 'var(--warning)'
+      };
+    } else {
+      return {
+        icon: <Clock size={14} color="var(--primary)" />,
+        color: 'var(--primary)'
+      };
+    }
+  };
+
   return (
     <div className="page-container">
       {/* Header */}
@@ -233,16 +258,19 @@ const MaintenanceRequests = () => {
                     </div>
                   </div>
 
-                  {selectedTicket.statusHistory?.map((log, idx) => (
-                    <div key={idx} style={styles.timelineItem}>
-                      <div style={styles.timelineIcon}><Clock size={14} color="var(--primary)" /></div>
-                      <div style={styles.timelineContent}>
-                        <strong>Status set to: <span style={{ textTransform: 'uppercase', color: 'var(--primary)' }}>{log.status}</span></strong>
-                        {log.comments && <p style={styles.timelineComments}>"{log.comments}"</p>}
-                        <span style={styles.timelineDate}>{new Date(log.date).toLocaleString()}</span>
+                  {selectedTicket.statusHistory?.map((log, idx) => {
+                    const details = getStatusDetails(log.status);
+                    return (
+                      <div key={idx} style={styles.timelineItem}>
+                        <div style={styles.timelineIcon}>{details.icon}</div>
+                        <div style={styles.timelineContent}>
+                          <strong>Status set to: <span style={{ textTransform: 'uppercase', color: details.color }}>{log.status}</span></strong>
+                          {log.comments && <p style={styles.timelineComments}>"{log.comments}"</p>}
+                          <span style={styles.timelineDate}>{new Date(log.date).toLocaleString()}</span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ) : (
